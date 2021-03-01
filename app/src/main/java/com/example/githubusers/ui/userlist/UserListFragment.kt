@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusers.data.Result
 import com.example.githubusers.databinding.FragmentUserListBinding
-import com.google.android.material.snackbar.Snackbar
 
 class UserListFragment : Fragment() {
 
@@ -37,7 +37,7 @@ class UserListFragment : Fragment() {
 
         initRvUsers()
 
-        getUsers(view)
+        getUsers()
 
     }
 
@@ -45,11 +45,12 @@ class UserListFragment : Fragment() {
         mBinding.rvUsers.apply {
             layoutManager = LinearLayoutManager(this.context)
             setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = mUserAdapter
         }
     }
 
-    private fun getUsers(view: View) {
+    private fun getUsers() {
         mViewModel.getUsers().observe(viewLifecycleOwner) { result ->
 
             when (result) {
@@ -62,7 +63,7 @@ class UserListFragment : Fragment() {
 
                 is Result.Error -> {
                     val message = result.exception.message ?: "Couldn't get users"
-                    Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+                    showEmptyState(message = message)
                 }
 
             }
@@ -70,16 +71,32 @@ class UserListFragment : Fragment() {
         }
     }
 
-    private fun showRvUsers() {
-        mBinding.rvUsers.isVisible = true
+    private fun showProgressBar() {
+        mBinding.apply {
+            progressBar.isVisible = true
 
-        mBinding.progressBar.isVisible = false
+            rvUsers.isVisible = false
+            tvEmptyState.isVisible = false
+        }
     }
 
-    private fun showProgressBar() {
-        mBinding.progressBar.isVisible = true
+    private fun showEmptyState(message: String) {
+        mBinding.apply {
+            tvEmptyState.isVisible = true
+            tvEmptyState.text = message
 
-        mBinding.rvUsers.isVisible = false
+            progressBar.isVisible = false
+            rvUsers.isVisible = false
+        }
+    }
+
+    private fun showRvUsers() {
+        mBinding.apply {
+            rvUsers.isVisible = true
+
+            progressBar.isVisible = false
+            tvEmptyState.isVisible = false
+        }
     }
 
     override fun onDestroyView() {
