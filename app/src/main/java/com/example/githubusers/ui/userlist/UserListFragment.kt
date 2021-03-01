@@ -4,16 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusers.data.Result
-import com.example.githubusers.databinding.FragmentFirstBinding
+import com.example.githubusers.databinding.FragmentUserListBinding
 import com.google.android.material.snackbar.Snackbar
 
 class UserListFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentUserListBinding? = null
     private val mBinding get() = _binding!!
 
     override fun onCreateView(
@@ -21,7 +22,7 @@ class UserListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentUserListBinding.inflate(inflater, container, false)
         return mBinding.root
     }
 
@@ -56,6 +57,7 @@ class UserListFragment : Fragment() {
                 is Result.Success -> {
                     val users = result.data
                     mUserAdapter.setUsers(users)
+                    showRvUsers()
                 }
 
                 is Result.Error -> {
@@ -66,6 +68,18 @@ class UserListFragment : Fragment() {
             }
 
         }
+    }
+
+    private fun showRvUsers() {
+        mBinding.rvUsers.isVisible = true
+
+        mBinding.progressBar.isVisible = false
+    }
+
+    private fun showProgressBar() {
+        mBinding.progressBar.isVisible = true
+
+        mBinding.rvUsers.isVisible = false
     }
 
     override fun onDestroyView() {
