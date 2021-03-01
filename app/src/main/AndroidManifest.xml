@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUsers">
         <activity
-            android:name=".NavHostActivity"
+            android:name=".ui.NavHostActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.GithubUsers.NoActionBar">
             <intent-filter>

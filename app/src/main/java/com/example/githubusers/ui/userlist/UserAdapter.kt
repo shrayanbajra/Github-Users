@@ -1,10 +1,12 @@
-package com.example.githubusers
+package com.example.githubusers.ui.userlist
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.githubusers.R
+import com.example.githubusers.data.UserResponse
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 

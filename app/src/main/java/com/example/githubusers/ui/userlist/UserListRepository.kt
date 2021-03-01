@@ -1,5 +1,8 @@
-package com.example.githubusers
+package com.example.githubusers.ui.userlist
 
+import com.example.githubusers.data.Result
+import com.example.githubusers.data.UserResponse
+import com.example.githubusers.network.GithubApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

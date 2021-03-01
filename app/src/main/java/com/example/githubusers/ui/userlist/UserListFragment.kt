@@ -1,4 +1,4 @@
-package com.example.githubusers
+package com.example.githubusers.ui.userlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.githubusers.data.Result
 import com.example.githubusers.databinding.FragmentFirstBinding
 import com.google.android.material.snackbar.Snackbar
 

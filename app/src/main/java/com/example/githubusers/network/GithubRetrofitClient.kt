@@ -1,5 +1,6 @@
-package com.example.githubusers
+package com.example.githubusers.network
 
+import com.example.githubusers.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

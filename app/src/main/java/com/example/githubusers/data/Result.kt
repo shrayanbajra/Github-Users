@@ -1,4 +1,4 @@
-package com.example.githubusers
+package com.example.githubusers.data
 
 sealed class Result<out R> {
 
