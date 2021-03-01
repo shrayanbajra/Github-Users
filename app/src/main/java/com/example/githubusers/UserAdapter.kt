@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    private val mUsers = arrayListOf<String>()
+    private val mUsers = arrayListOf<UserResponse>()
 
-    fun setUsers(users: List<String>) {
+    fun setUsers(users: List<UserResponse>) {
         mUsers.clear()
         mUsers.addAll(users)
         notifyDataSetChanged()
@@ -35,8 +35,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
         private val mTvUsername: TextView = itemView.findViewById(R.id.tv_username)
 
-        fun bind(currentUser: String) {
-            mTvUsername.text = currentUser
+        fun bind(currentUser: UserResponse) {
+            mTvUsername.text = currentUser.login
         }
 
     }
