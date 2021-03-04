@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubusers.data.Result
 import com.example.githubusers.databinding.FragmentUserListBinding
+import com.example.githubusers.util.ResultWrapper
 
 class UserListFragment : Fragment() {
 
@@ -55,14 +55,14 @@ class UserListFragment : Fragment() {
 
             when (result) {
 
-                is Result.Success -> {
+                is ResultWrapper.Success -> {
                     val users = result.data
                     mUserAdapter.setUsers(users)
                     showRvUsers()
                 }
 
-                is Result.Error -> {
-                    val message = result.exception.message ?: "Couldn't get users"
+                is ResultWrapper.Error -> {
+                    val message = result.msg
                     showEmptyState(message = message)
                 }
 

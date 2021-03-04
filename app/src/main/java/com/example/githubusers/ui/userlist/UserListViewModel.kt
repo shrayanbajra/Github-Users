@@ -1,27 +1,28 @@
 package com.example.githubusers.ui.userlist
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.githubusers.data.Result
 import com.example.githubusers.data.UserResponse
 import com.example.githubusers.network.GithubRetrofitClient
+import com.example.githubusers.util.ResultWrapper
+import com.example.githubusers.util.SingleEventLiveData
 import kotlinx.coroutines.launch
 
 class UserListViewModel : ViewModel() {
 
-    fun getUsers(): LiveData<Result<List<UserResponse>>> {
+    private val scope = viewModelScope
 
-        val users = MutableLiveData<Result<List<UserResponse>>>()
+    private val repository by lazy {
+        val githubApi = GithubRetrofitClient.getInstance()
+        UserListRepository(githubApi)
+    }
 
-        viewModelScope.launch {
+    fun getUsers(): LiveData<ResultWrapper<List<UserResponse>>> {
 
-            val retrofitClient = GithubRetrofitClient.getInstance()
-            val repository = UserListRepository(retrofitClient)
-            users.postValue(repository.getUsers())
+        val users = SingleEventLiveData<ResultWrapper<List<UserResponse>>>()
 
-        }
+        scope.launch { users.value = repository.getUsers() }
 
         return users
 

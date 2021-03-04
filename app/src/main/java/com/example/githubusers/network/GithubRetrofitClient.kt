@@ -1,6 +1,7 @@
 package com.example.githubusers.network
 
 import com.example.githubusers.Constants
+import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,6 +13,7 @@ object GithubRetrofitClient {
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(NetworkResponseAdapterFactory())
             .client(getOkHttpClient())
             .build()
         return retrofit.create(GithubApi::class.java)
