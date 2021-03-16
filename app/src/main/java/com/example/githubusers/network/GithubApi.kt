@@ -15,6 +15,6 @@ interface GithubApi {
     @GET("/users/{username}")
     suspend fun getUserProfile(
         @Path("username") username: String
-    ): NetworkResponse<List<ProfileResponse>, ErrorResponse>
+    ): NetworkResponse<ProfileResponse, ErrorResponse>
 
 }

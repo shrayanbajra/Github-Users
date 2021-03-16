@@ -12,7 +12,6 @@ import com.example.githubusers.R
 import com.example.githubusers.data.UserCacheEntity
 import com.example.githubusers.databinding.FragmentUserListBinding
 import com.example.githubusers.util.ResultWrapper
-import com.example.githubusers.util.extensions.shortToast
 
 class UserListFragment : Fragment() {
 
@@ -36,17 +35,11 @@ class UserListFragment : Fragment() {
         override fun onClicked(user: UserCacheEntity) {
 
             val username = user.username
-
-            if (username.isNullOrBlank()) {
-                shortToast(message = "Something went wrong")
-                return
-            }
-
             navigateToProfileFragment(username)
 
         }
 
-        private fun navigateToProfileFragment(username: String) {
+        private fun navigateToProfileFragment(username: String?) {
             val action = UserListFragmentDirections
                 .actionUserListFragmentToProfileFragment(username = username)
             findNavController().navigate(action)

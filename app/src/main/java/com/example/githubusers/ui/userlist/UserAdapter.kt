@@ -50,13 +50,13 @@ class UserAdapter(
         private val mTvUsername: TextView = itemView.findViewById(R.id.tv_username)
 
         fun bind(currentUser: UserCacheEntity) {
-            currentUser.avatarUrl?.let { setIconFromUrl(it) }
+            currentUser.avatarUrl?.let { setIconUsingUrl(it) }
             mTvUsername.text = currentUser.username
 
             itemView.setOnClickListener { clickListener.onClicked(currentUser) }
         }
 
-        private fun setIconFromUrl(imageUrl: String?) {
+        private fun setIconUsingUrl(imageUrl: String?) {
             Glide.with(itemView.context)
                 .load(imageUrl)
                 .placeholder(R.drawable.ic_user_place_holder_outlined)

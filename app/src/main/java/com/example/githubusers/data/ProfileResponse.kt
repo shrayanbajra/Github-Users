@@ -39,7 +39,7 @@ data class ProfileResponse(
     @SerializedName("location")
     val location: Any? = Any(),
     @SerializedName("login")
-    val login: String? = "",
+    val username: String? = "",
     @SerializedName("name")
     val name: Any? = Any(),
     @SerializedName("node_id")
