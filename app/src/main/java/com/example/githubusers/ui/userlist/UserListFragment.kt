@@ -5,13 +5,13 @@ import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusers.R
 import com.example.githubusers.data.UserCacheEntity
 import com.example.githubusers.databinding.FragmentUserListBinding
 import com.example.githubusers.util.ResultWrapper
-import com.example.githubusers.util.extensions.getNotAvailableIfNullOrBlank
 import com.example.githubusers.util.extensions.shortToast
 
 class UserListFragment : Fragment() {
@@ -29,17 +29,30 @@ class UserListFragment : Fragment() {
         return mBinding.root
     }
 
-    private val mUserAdapter by lazy {
-        UserAdapter(object : UserAdapter.UserClickListener {
+    private val mUserAdapter by lazy { getUserAdapter() }
 
-            override fun onClicked(user: UserCacheEntity) {
-                // TODO: Need to open a profile fragment with details of user
-                val username = user.username.getNotAvailableIfNullOrBlank()
-                shortToast(message = username)
+    private fun getUserAdapter() = UserAdapter(object : UserAdapter.UserClickListener {
+
+        override fun onClicked(user: UserCacheEntity) {
+
+            val username = user.username
+
+            if (username.isNullOrBlank()) {
+                shortToast(message = "Something went wrong")
+                return
             }
 
-        })
-    }
+            navigateToProfileFragment(username)
+
+        }
+
+        private fun navigateToProfileFragment(username: String) {
+            val action = UserListFragmentDirections
+                .actionUserListFragmentToProfileFragment(username = username)
+            findNavController().navigate(action)
+        }
+
+    })
 
     private val mViewModel by lazy {
         ViewModelProvider(this)[UserListViewModel::class.java]
