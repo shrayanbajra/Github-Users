@@ -84,6 +84,7 @@ class UserListFragment : Fragment() {
                 }
 
                 is ResultWrapper.Error -> {
+                    mUserAdapter.clear()
                     val message = result.msg
                     showEmptyState(message = message)
                 }
