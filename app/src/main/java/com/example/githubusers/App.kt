@@ -9,6 +9,7 @@ class App : Application() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
+        ObjectBox.init(this)
     }
 
 }
