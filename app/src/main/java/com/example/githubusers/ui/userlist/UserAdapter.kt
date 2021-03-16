@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubusers.R
 import com.example.githubusers.data.UserCacheEntity
-import com.example.githubusers.data.UserResponse
 import de.hdodenhof.circleimageview.CircleImageView
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
@@ -18,6 +17,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     fun setUsers(users: List<UserCacheEntity>) {
         mUsers.clear()
         mUsers.addAll(users)
+        notifyDataSetChanged()
+    }
+
+    fun clear() {
+        mUsers.clear()
         notifyDataSetChanged()
     }
 

@@ -71,4 +71,6 @@ class UserListRepository(private val githubApi: GithubApi) : BaseRepository() {
         userBox.put(cacheEntity)
     }
 
+    fun deleteAllUsersInDb(userBox: Box<UserCacheEntity>) = userBox.removeAll()
+
 }

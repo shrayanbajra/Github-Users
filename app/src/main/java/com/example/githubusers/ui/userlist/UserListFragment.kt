@@ -1,14 +1,13 @@
 package com.example.githubusers.ui.userlist
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.githubusers.R
 import com.example.githubusers.databinding.FragmentUserListBinding
 import com.example.githubusers.util.ResultWrapper
 
@@ -22,6 +21,7 @@ class UserListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         _binding = FragmentUserListBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -30,6 +30,28 @@ class UserListFragment : Fragment() {
 
     private val mViewModel by lazy {
         ViewModelProvider(this)[UserListViewModel::class.java]
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.itemId == R.id.action_delete_all) {
+            proceedToDeletingAllUsers()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun proceedToDeletingAllUsers() {
+        mViewModel.deleteAllUsers()
+        mUserAdapter.clear()
+        val message = "No Users Found"
+        showEmptyState(message)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
