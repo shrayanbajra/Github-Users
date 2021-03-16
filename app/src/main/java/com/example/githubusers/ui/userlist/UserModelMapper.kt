@@ -7,15 +7,13 @@ object UserModelMapper {
 
     fun mapAllResponseToCacheEntities(userResponses: List<UserResponse>): List<UserCacheEntity> {
 
-        return userResponses.map {
-            mapResponseToCacheEntity(it)
-        }
+        return userResponses.map { mapResponseToCacheEntity(it) }
 
     }
 
     private fun mapResponseToCacheEntity(response: UserResponse): UserCacheEntity {
 
-        return UserCacheEntity(name = response.login)
+        return UserCacheEntity(name = response.username)
 
     }
 

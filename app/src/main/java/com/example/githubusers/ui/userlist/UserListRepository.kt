@@ -1,11 +1,11 @@
 package com.example.githubusers.ui.userlist
 
-import com.example.githubusers.ObjectBox
+import com.example.githubusers.base.BaseRepository
+import com.example.githubusers.core.ObjectBox
 import com.example.githubusers.data.UserCacheEntity
 import com.example.githubusers.data.UserCacheEntity_
 import com.example.githubusers.data.UserResponse
 import com.example.githubusers.network.GithubApi
-import com.example.githubusers.util.BaseRepository
 import com.example.githubusers.util.ResultWrapper
 import io.objectbox.Box
 import io.objectbox.kotlin.boxFor
@@ -31,10 +31,7 @@ class UserListRepository(private val githubApi: GithubApi) : BaseRepository() {
         Timber.d("Proceeding to Show Cached Data")
 
         val userBox: Box<UserCacheEntity> = ObjectBox.boxStore.boxFor()
-        val usersInDb = userBox.query()
-            .order(UserCacheEntity_.name)
-            .build()
-            .find()
+        val usersInDb = getUsersInAlphabeticalOrder(userBox)
 
         return if (usersInDb.isNullOrEmpty()) {
             Timber.d("No data found in database, return network response as it is")
@@ -46,18 +43,32 @@ class UserListRepository(private val githubApi: GithubApi) : BaseRepository() {
 
     }
 
+    private fun getUsersInAlphabeticalOrder(userBox: Box<UserCacheEntity>): MutableList<UserCacheEntity> {
+        return userBox.query()
+            .order(UserCacheEntity_.name)
+            .build()
+            .find()
+    }
+
     private fun proceedToShowingUpdatedDataFromDb(networkResponse: ResultWrapper.Success<List<UserResponse>>): ResultWrapper.Success<MutableList<UserCacheEntity>> {
 
         Timber.d("Proceeding to show updated data from database")
 
         val userBox: Box<UserCacheEntity> = ObjectBox.boxStore.boxFor()
-        val cacheEntity = UserModelMapper.mapAllResponseToCacheEntities(networkResponse.data)
-        userBox.put(cacheEntity)
+        updateUsersInDb(userBox, networkResponse.data)
 
         Timber.d("Returned updated cached data")
-        val updatedUsersInDb = userBox.all
+
+        val updatedUsersInDb = getUsersInAlphabeticalOrder(userBox)
         return ResultWrapper.Success(data = updatedUsersInDb)
 
+    }
+
+    private fun updateUsersInDb(userBox: Box<UserCacheEntity>, usersResponse: List<UserResponse>) {
+        userBox.removeAll()
+
+        val cacheEntity = UserModelMapper.mapAllResponseToCacheEntities(usersResponse)
+        userBox.put(cacheEntity)
     }
 
 }

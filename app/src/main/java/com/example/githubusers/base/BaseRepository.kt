@@ -1,5 +1,8 @@
-package com.example.githubusers.util
+package com.example.githubusers.base
 
+import com.example.githubusers.util.ErrorResponse
+import com.example.githubusers.util.NetworkResponseHandler
+import com.example.githubusers.util.ResultWrapper
 import com.haroldadmin.cnradapter.NetworkResponse
 
 abstract class BaseRepository {

@@ -1,4 +1,4 @@
-package com.example.githubusers
+package com.example.githubusers.core
 
 import android.content.Context
 import com.example.githubusers.data.MyObjectBox

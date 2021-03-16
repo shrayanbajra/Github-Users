@@ -21,7 +21,7 @@ data class UserResponse(
     @SerializedName("id")
     val id: Int?,
     @SerializedName("login")
-    val login: String?,
+    val username: String?,
     @SerializedName("node_id")
     val nodeId: String?,
     @SerializedName("organizations_url")

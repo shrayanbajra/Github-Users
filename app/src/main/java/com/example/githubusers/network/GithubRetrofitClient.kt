@@ -1,6 +1,6 @@
 package com.example.githubusers.network
 
-import com.example.githubusers.Constants
+import com.example.githubusers.util.Constants
 import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
