@@ -42,15 +42,16 @@ class UserAdapter(
 
     override fun getItemCount() = mUsers.size
 
-    inner class UserViewHolder(itemView: View, val clickListener: UserClickListener) :
-        RecyclerView.ViewHolder(itemView) {
+    inner class UserViewHolder(itemView: View, private val clickListener: UserClickListener)
+
+        : RecyclerView.ViewHolder(itemView) {
 
         private val mIvAvatar: CircleImageView = itemView.findViewById(R.id.iv_avatar)
         private val mTvUsername: TextView = itemView.findViewById(R.id.tv_username)
 
         fun bind(currentUser: UserCacheEntity) {
             currentUser.avatarUrl?.let { setIconFromUrl(it) }
-            mTvUsername.text = currentUser.name
+            mTvUsername.text = currentUser.username
 
             itemView.setOnClickListener { clickListener.onClicked(currentUser) }
         }

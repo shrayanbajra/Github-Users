@@ -34,7 +34,7 @@ class UserListFragment : Fragment() {
 
             override fun onClicked(user: UserCacheEntity) {
                 // TODO: Need to open a profile fragment with details of user
-                val username = user.name.getNotAvailableIfNullOrBlank()
+                val username = user.username.getNotAvailableIfNullOrBlank()
                 shortToast(message = username)
             }
 

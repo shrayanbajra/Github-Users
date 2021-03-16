@@ -13,7 +13,7 @@ object UserModelMapper {
 
     private fun mapResponseToCacheEntity(response: UserResponse): UserCacheEntity {
 
-        return UserCacheEntity(name = response.username, avatarUrl = response.avatarUrl)
+        return UserCacheEntity(username = response.username, avatarUrl = response.avatarUrl)
 
     }
 

@@ -45,7 +45,7 @@ class UserListRepository(private val githubApi: GithubApi) : BaseRepository() {
 
     private fun getUsersInAlphabeticalOrder(userBox: Box<UserCacheEntity>): MutableList<UserCacheEntity> {
         return userBox.query()
-            .order(UserCacheEntity_.name)
+            .order(UserCacheEntity_.username)
             .build()
             .find()
     }
