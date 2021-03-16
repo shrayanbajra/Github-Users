@@ -46,8 +46,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         private val mTvUsername: TextView = itemView.findViewById(R.id.tv_username)
 
         fun bind(currentUser: UserCacheEntity) {
-//            currentUser.avatarUrl?.let { setIconFromUrl(it) }
-            mIvAvatar.setImageResource(R.drawable.ic_user_place_holder_outlined)
+            currentUser.avatarUrl?.let { setIconFromUrl(it) }
             mTvUsername.text = currentUser.name
         }
 

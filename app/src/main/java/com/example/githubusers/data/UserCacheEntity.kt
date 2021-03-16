@@ -8,6 +8,7 @@ data class UserCacheEntity(
 
     @Id
     var id: Long = 0,
-    var name: String? = null
+    var name: String? = null,
+    var avatarUrl: String? = null
 
 )
