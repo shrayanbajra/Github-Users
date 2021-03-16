@@ -8,8 +8,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusers.R
+import com.example.githubusers.data.UserCacheEntity
 import com.example.githubusers.databinding.FragmentUserListBinding
 import com.example.githubusers.util.ResultWrapper
+import com.example.githubusers.util.extensions.getNotAvailableIfNullOrBlank
+import com.example.githubusers.util.extensions.shortToast
 
 class UserListFragment : Fragment() {
 
@@ -26,7 +29,17 @@ class UserListFragment : Fragment() {
         return mBinding.root
     }
 
-    private val mUserAdapter by lazy { UserAdapter() }
+    private val mUserAdapter by lazy {
+        UserAdapter(object : UserAdapter.UserClickListener {
+
+            override fun onClicked(user: UserCacheEntity) {
+                // TODO: Need to open a profile fragment with details of user
+                val username = user.name.getNotAvailableIfNullOrBlank()
+                shortToast(message = username)
+            }
+
+        })
+    }
 
     private val mViewModel by lazy {
         ViewModelProvider(this)[UserListViewModel::class.java]

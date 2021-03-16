@@ -10,7 +10,9 @@ import com.example.githubusers.R
 import com.example.githubusers.data.UserCacheEntity
 import de.hdodenhof.circleimageview.CircleImageView
 
-class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class UserAdapter(
+    private val mUserClickListener: UserClickListener
+) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     private val mUsers = arrayListOf<UserCacheEntity>()
 
@@ -28,7 +30,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_user, parent, false)
-        return UserViewHolder(view)
+        return UserViewHolder(view, mUserClickListener)
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
@@ -40,7 +42,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     override fun getItemCount() = mUsers.size
 
-    inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class UserViewHolder(itemView: View, val clickListener: UserClickListener) :
+        RecyclerView.ViewHolder(itemView) {
 
         private val mIvAvatar: CircleImageView = itemView.findViewById(R.id.iv_avatar)
         private val mTvUsername: TextView = itemView.findViewById(R.id.tv_username)
@@ -48,6 +51,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         fun bind(currentUser: UserCacheEntity) {
             currentUser.avatarUrl?.let { setIconFromUrl(it) }
             mTvUsername.text = currentUser.name
+
+            itemView.setOnClickListener { clickListener.onClicked(currentUser) }
         }
 
         private fun setIconFromUrl(imageUrl: String?) {
@@ -56,6 +61,12 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                 .placeholder(R.drawable.ic_user_place_holder_outlined)
                 .into(mIvAvatar)
         }
+
+    }
+
+    interface UserClickListener {
+
+        fun onClicked(user: UserCacheEntity)
 
     }
 
