@@ -7,14 +7,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubusers.R
+import com.example.githubusers.data.UserCacheEntity
 import com.example.githubusers.data.UserResponse
 import de.hdodenhof.circleimageview.CircleImageView
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    private val mUsers = arrayListOf<UserResponse>()
+    private val mUsers = arrayListOf<UserCacheEntity>()
 
-    fun setUsers(users: List<UserResponse>) {
+    fun setUsers(users: List<UserCacheEntity>) {
         mUsers.clear()
         mUsers.addAll(users)
         notifyDataSetChanged()
@@ -40,9 +41,10 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         private val mIvAvatar: CircleImageView = itemView.findViewById(R.id.iv_avatar)
         private val mTvUsername: TextView = itemView.findViewById(R.id.tv_username)
 
-        fun bind(currentUser: UserResponse) {
-            currentUser.avatarUrl?.let { setIconFromUrl(it) }
-            mTvUsername.text = currentUser.login
+        fun bind(currentUser: UserCacheEntity) {
+//            currentUser.avatarUrl?.let { setIconFromUrl(it) }
+            mIvAvatar.setImageResource(R.drawable.ic_user_place_holder_outlined)
+            mTvUsername.text = currentUser.name
         }
 
         private fun setIconFromUrl(imageUrl: String?) {
