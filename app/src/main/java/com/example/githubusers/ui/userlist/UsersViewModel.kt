@@ -9,13 +9,13 @@ import com.example.githubusers.util.ResultWrapper
 import com.example.githubusers.util.SingleEventLiveData
 import kotlinx.coroutines.launch
 
-class UserListViewModel : ViewModel() {
+class UsersViewModel : ViewModel() {
 
     private val scope = viewModelScope
 
     private val repository by lazy {
         val githubApi = GithubRetrofitClient.getInstance()
-        UserListRepository(githubApi)
+        UsersRepository(githubApi)
     }
 
     fun getUsers(): LiveData<ResultWrapper<List<UserResponse>>> {

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusers.databinding.FragmentUserListBinding
 import com.example.githubusers.util.ResultWrapper
 
-class UserListFragment : Fragment() {
+class UsersFragment : Fragment() {
 
     private var _binding: FragmentUserListBinding? = null
     private val mBinding get() = _binding!!
@@ -29,7 +29,7 @@ class UserListFragment : Fragment() {
     private val mUserAdapter by lazy { UserAdapter() }
 
     private val mViewModel by lazy {
-        ViewModelProvider(this)[UserListViewModel::class.java]
+        ViewModelProvider(this)[UsersViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
