@@ -1,4 +1,4 @@
-package com.example.githubusers.ui.userlist
+package com.example.githubusers.ui.users
 
 import android.view.LayoutInflater
 import android.view.View

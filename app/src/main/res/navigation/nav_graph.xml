@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.githubusers.ui.userlist.UsersFragment"
+        android:name="com.example.githubusers.ui.users.UsersFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_user_list" />
+        tools:layout="@layout/fragment_users" />
 
 </navigation>

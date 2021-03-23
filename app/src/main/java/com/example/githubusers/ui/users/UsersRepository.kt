@@ -1,4 +1,4 @@
-package com.example.githubusers.ui.userlist
+package com.example.githubusers.ui.users
 
 import com.example.githubusers.network.GithubApi
 import com.example.githubusers.util.BaseRepository

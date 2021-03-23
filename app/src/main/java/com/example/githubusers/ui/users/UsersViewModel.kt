@@ -1,4 +1,4 @@
-package com.example.githubusers.ui.userlist
+package com.example.githubusers.ui.users
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

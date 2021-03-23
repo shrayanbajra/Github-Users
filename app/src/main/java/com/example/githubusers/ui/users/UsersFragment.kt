@@ -1,4 +1,4 @@
-package com.example.githubusers.ui.userlist
+package com.example.githubusers.ui.users
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubusers.databinding.FragmentUserListBinding
+import com.example.githubusers.databinding.FragmentUsersBinding
 import com.example.githubusers.util.ResultWrapper
 
 class UsersFragment : Fragment() {
 
-    private var _binding: FragmentUserListBinding? = null
+    private var _binding: FragmentUsersBinding? = null
     private val mBinding get() = _binding!!
 
     override fun onCreateView(
@@ -22,7 +22,7 @@ class UsersFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentUserListBinding.inflate(inflater, container, false)
+        _binding = FragmentUsersBinding.inflate(inflater, container, false)
         return mBinding.root
     }
 
