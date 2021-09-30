@@ -1,6 +1,7 @@
 package com.example.githubusers.ui.users
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusers.databinding.FragmentUsersBinding
+import com.example.githubusers.framework.shortSnackBar
 import com.example.githubusers.util.ResultWrapper
+import timber.log.Timber
 
 class UsersFragment : Fragment() {
 
@@ -56,14 +59,23 @@ class UsersFragment : Fragment() {
             when (result) {
 
                 is ResultWrapper.Success -> {
+                    Timber.d("Success: ${result.data}")
                     val users = result.data
                     mUserAdapter.setUsers(users)
                     showRvUsers()
                 }
 
                 is ResultWrapper.Error -> {
+                    Timber.d("Error: ${result.msg}")
                     val message = result.msg
                     showEmptyState(message = message)
+                }
+
+                is ResultWrapper.NoInternetConnection -> {
+                    val message = getString(result.msg)
+                    Timber.d("No Internet Connection: $message")
+                    showEmptyState(message = message)
+                    shortSnackBar(message = result.msg)
                 }
 
             }

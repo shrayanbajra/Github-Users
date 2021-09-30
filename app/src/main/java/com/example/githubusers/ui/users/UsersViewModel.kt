@@ -1,6 +1,7 @@
 package com.example.githubusers.ui.users
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.githubusers.data.UserResponse
@@ -20,7 +21,7 @@ class UsersViewModel : ViewModel() {
 
     fun getUsers(): LiveData<ResultWrapper<List<UserResponse>>> {
 
-        val users = SingleEventLiveData<ResultWrapper<List<UserResponse>>>()
+        val users = MutableLiveData<ResultWrapper<List<UserResponse>>>()
 
         scope.launch { users.value = repository.getUsers() }
 
