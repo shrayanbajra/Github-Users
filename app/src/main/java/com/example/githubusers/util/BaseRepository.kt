@@ -2,6 +2,8 @@ package com.example.githubusers.util
 
 import com.example.githubusers.R
 import com.haroldadmin.cnradapter.NetworkResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 abstract class BaseRepository {
@@ -15,9 +17,13 @@ abstract class BaseRepository {
 
         } else {
 
-            Timber.d("Internet connection found: proceeding to call api")
-            val networkResponse = apiCall()
-            NetworkResponseHandler.handle(networkResponse = networkResponse)
+            withContext(Dispatchers.IO) {
+
+                Timber.d("Internet connection found: proceeding to call api")
+                val networkResponse = apiCall()
+                NetworkResponseHandler.handle(networkResponse = networkResponse)
+
+            }
 
         }
 
